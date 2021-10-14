@@ -1,6 +1,6 @@
 # Create AWS Route53 and point the Cloudflare domain to these name servers
 module "route53" {
-  source      = "https://github.com/aq-terraform-modules/terraform-aws-route53.git?ref=dev"
+  source      = "git::https://github.com/aq-terraform-modules/terraform-aws-route53.git?ref=dev"
   domain_name = "aws.pierre-cardin.info"
 }
 
