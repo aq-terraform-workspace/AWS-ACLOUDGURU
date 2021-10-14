@@ -5,8 +5,8 @@ resource "random_integer" "random" {
 }
 module "route53" {
   providers = {
-    cloudflare/cloudflare = cloudflare
     aws        = aws
+    cloudflare = cloudflare
   }
 
   source      = "git::https://github.com/aq-terraform-modules/terraform-aws-route53.git?ref=dev"
