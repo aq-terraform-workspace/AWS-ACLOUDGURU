@@ -4,6 +4,11 @@ resource "random_integer" "random" {
   max = 99999999
 }
 module "route53" {
+  providers = {
+    cloudflare = cloudflare
+    aws        = aws
+  }
+
   source      = "git::https://github.com/aq-terraform-modules/terraform-aws-route53.git?ref=dev"
   domain_name = "${local.sub_domain_prefix}-${random_integer.random.result}.${local.main_domain}"
 }
