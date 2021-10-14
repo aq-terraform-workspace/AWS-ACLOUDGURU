@@ -5,7 +5,7 @@ resource "random_integer" "random" {
 }
 module "route53" {
   providers = {
-    cloudflare = cloudflare
+    cloudflare/cloudflare = cloudflare
     aws        = aws
   }
 
