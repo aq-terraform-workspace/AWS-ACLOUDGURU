@@ -48,6 +48,7 @@ module "monitoring_ecs" {
   frontend_image = "docker.io/library/nginx:stable"
   frontend_port = 80
   frontend_domain = "monitoring"
+  parent_domain = "${local.sub_domain}-${random_integer.random.result}.${local.main_domain}"
   subnets = data.aws_subnet_ids.public_subnets.ids
   vpc_id = data.aws_vpc.core_vpc.id
   lb_dns_name = data.aws_lb.core_lb.dns_name
