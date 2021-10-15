@@ -41,4 +41,5 @@ module "lb" {
   name            = "${local.lb_name}-${random_integer.random.result}"
   subnets         = module.base_network.public_subnets
   security_groups = [module.base_network.default_security_group_id]
+  vpc_id          = module.base_network.vpc_id
 }
