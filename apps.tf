@@ -42,7 +42,7 @@ data "aws_lb_listener" "http_listener" {
 #################################################################################
 module "monitoring_ecs" {
   source = "git::https://github.com/aq-terraform-modules/terraform-aws-ecs.git?ref=dev"
-  name   = "monitoring-cluster-${random_integer.random.result}"
+  name   = "monitoring-${random_integer.random.result}"
   frontend_cpu = 2
   frontend_memory = 2048
   frontend_image = "docker.io/library/nginx:stable"
