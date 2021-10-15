@@ -3,10 +3,14 @@
 #################################################################################
 data "aws_lb" "core_lb" {
   name = "${local.lb_name}-${random_integer.random.result}"
+  
+  depends_on = [module.lb]
 }
 
 data "aws_route53_zone" "main_zone" {
   name = "${local.sub_domain}-${random_integer.random.result}.${local.main_domain}"
+
+  depends_on = [module.route53]
 }
 
 data "aws_vpc" "core_vpc" {
@@ -14,6 +18,8 @@ data "aws_vpc" "core_vpc" {
     name = "tag:Name"
     values = ["${local.vpc_name}-${random_integer.random.result}"]
   }
+
+  depends_on = [module.base_network]
 }
 
 data "aws_subnet_ids" "public_subnets" {
