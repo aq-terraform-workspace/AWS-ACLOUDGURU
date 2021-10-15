@@ -30,7 +30,7 @@ terraform {
     organization = "aq-tf-cloud"
 
     workspaces {
-      name = "AZ-ACLOUDGURU"
+      name = "AWS-ACLOUDGURU"
     }
   }
 }
