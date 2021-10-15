@@ -7,7 +7,7 @@ locals {
   monitoring_frontend_memory = 2048
   monitoring_frontend_port = 80
   monitoring_frontend_domain = "monitoring"
-  monitoring_frontend_log_group_name_prefix = "monitoring"
+  monitoring_frontend_log_group_name_prefix = "ecs"
   monitoring_frontend_image = "docker.io/library/nginx:stable"
 }
 
