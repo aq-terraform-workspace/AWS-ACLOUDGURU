@@ -7,5 +7,5 @@ module "route53" {
 
   source      = "git::https://github.com/aq-terraform-modules/terraform-aws-route53.git?ref=dev"
   main_domain = local.main_domain
-  sub_domain  = "${local.sub_domain}-${random_interger.random.result}"
+  sub_domain  = "${local.sub_domain}-${random_integer.random.result}"
 }
