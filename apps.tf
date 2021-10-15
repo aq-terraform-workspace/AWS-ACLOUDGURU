@@ -11,7 +11,8 @@ data "aws_route53_zone" "main_zone" {
 
 data "aws_vpc" "core_vpc" {
   filter {
-    Name = "${local.vpc_name}-${random_integer.random.result}"
+    name = "tag:Name"
+    values = ["${local.vpc_name}-${random_integer.random.result}"]
   }
 }
 
@@ -19,7 +20,8 @@ data "aws_subnet_ids" "public_subnets" {
   vpc_id = data.aws_vpc.core_vpc.id
 
   filter {
-    Name = "*public*"
+    name = "tag:Name"
+    values = ["*public*"]
   }
 }
 
