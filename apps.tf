@@ -40,7 +40,7 @@ data "aws_lb_listener" "http_listener" {
 #################################################################################
 # ECS APP
 #################################################################################
-/* module "monitoring_ecs" {
+module "monitoring_ecs" {
   source                         = "git::https://github.com/aq-terraform-modules/terraform-aws-ecs.git?ref=dev"
   name                           = "monitoring-${random_integer.random.result}"
   region                         = var.region
@@ -57,4 +57,4 @@ data "aws_lb_listener" "http_listener" {
   lb_zone_id                     = data.aws_lb.core_lb.zone_id
   route53_zone_id                = data.aws_route53_zone.main_zone.zone_id
   listener_arn                   = data.aws_lb_listener.http_listener.arn
-} */
+}
