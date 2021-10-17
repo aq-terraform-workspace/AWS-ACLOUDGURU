@@ -51,12 +51,13 @@ module "monitoring_ecs" {
   frontend_domain                = local.monitoring_frontend_domain
   frontend_log_group_name_prefix = local.monitoring_frontend_log_group_name_prefix
   parent_domain                  = "${local.sub_domain}-${random_integer.random.result}.${local.main_domain}"
-  subnets                        = data.aws_subnet_ids.public_subnets.ids
+  subnets                        = data.aws_subnet_ids.private_subnets.ids
   vpc_id                         = data.aws_vpc.core_vpc.id
   lb_dns_name                    = data.aws_lb.core_lb.dns_name
   lb_zone_id                     = data.aws_lb.core_lb.zone_id
   route53_zone_id                = data.aws_route53_zone.main_zone.zone_id
   listener_arn                   = data.aws_lb_listener.http_listener.arn
+  assign_public_ip               = false
 
   depends_on = [
     data.aws_subnet_ids.public_subnets,
