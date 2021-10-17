@@ -60,7 +60,7 @@ module "monitoring_ecs" {
   assign_public_ip               = false
 
   depends_on = [
-    data.aws_subnet_ids.public_subnets,
+    data.aws_subnet_ids.private_subnets,
     data.aws_vpc.core_vpc,
     data.aws_lb.core_lb,
     data.aws_route53_zone.main_zone,
