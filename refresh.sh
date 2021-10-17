@@ -1,5 +1,6 @@
 #!/bin/bash
 
+terraform state rm 'data'
 terraform state rm 'module.base_network'
 terraform state rm 'module.route53'
 terraform state rm 'module.lb'
