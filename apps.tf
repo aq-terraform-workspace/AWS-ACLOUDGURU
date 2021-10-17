@@ -57,4 +57,12 @@ module "monitoring_ecs" {
   lb_zone_id                     = data.aws_lb.core_lb.zone_id
   route53_zone_id                = data.aws_route53_zone.main_zone.zone_id
   listener_arn                   = data.aws_lb_listener.http_listener.arn
+
+  depends_on = [
+    data.aws_subnet_ids.public_subnets,
+    data.aws_vpc.core_vpc,
+    data.aws_lb.core_lb,
+    data.aws_route53_zone.main_zone,
+    data.aws_lb_listener.http_listener
+  ]
 }

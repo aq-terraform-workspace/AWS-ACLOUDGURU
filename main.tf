@@ -8,7 +8,7 @@ locals {
   monitoring_frontend_port                  = 80
   monitoring_frontend_domain                = "monitoring"
   monitoring_frontend_log_group_name_prefix = "ecs"
-  monitoring_frontend_image                 = "docker.io/sheid1309/simple-nodejs"
+  monitoring_frontend_image                 = "docker.io/sheid1309/simple-nodejs:v2.0"
 }
 
 # Create random number since this is for acloudguru
