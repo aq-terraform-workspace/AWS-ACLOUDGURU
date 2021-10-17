@@ -22,12 +22,12 @@ data "aws_vpc" "core_vpc" {
   depends_on = [module.base_network]
 }
 
-data "aws_subnet_ids" "public_subnets" {
+data "aws_subnet_ids" "private_subnets" {
   vpc_id = data.aws_vpc.core_vpc.id
 
   filter {
     name   = "tag:Name"
-    values = ["*public*"]
+    values = ["*private*"]
   }
 }
 
