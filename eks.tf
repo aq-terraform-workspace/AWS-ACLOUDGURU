@@ -39,5 +39,6 @@ provider "kubernetes" {
 }
 
 output "kubeconfig" {
+  description = "kubectl config file contents for this EKS cluster. Will block on cluster creation until the cluster is really ready"
   value = module.eks.kubeconfig
 }

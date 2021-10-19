@@ -1,7 +1,7 @@
 ###########################################################
 # RDS VARIABLES
 ###########################################################
-instance_class    = "db.t3.small"
+instance_class    = "db.t3.medium"
 allocated_storage = 50
 db_name           = "devpostgres"
 db_username       = "postgres_admin"
@@ -25,3 +25,8 @@ bastion_name          = "dev-linux-bastion"
 bastion_instance_type = "t3.small"
 key_name              = "linux-ssh-key"
 bastion_ami           = "ami-0a99b06fad09f48df"
+
+###########################################################
+# LOAD BALANCER VARIABLES
+###########################################################
+alb_name = "dev"

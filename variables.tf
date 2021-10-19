@@ -100,3 +100,10 @@ variable "associate_public_ip_address" {
   type = bool
   default = true
 }
+
+###########################################################
+# LOAD BALANCER VARIABLES
+###########################################################
+variable "alb_name" {
+  description = "Name of the ALB"
+}
