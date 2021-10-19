@@ -6,7 +6,7 @@ module "postgres" {
 
   # DB instance configuration
   engine                 = "postgres"
-  engine_version         = "13.4-R1"
+  engine_version         = "13.4"
   instance_class         = var.instance_class
   allocated_storage      = var.allocated_storage
   vpc_security_group_ids = [module.sg_database.security_group_id]
