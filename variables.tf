@@ -24,3 +24,8 @@ variable "db_storage_type" {
   description = "Storage type for DB"
   default     = "gp2"
 }
+
+variable "db_password" {
+  description = "Password for DB"
+  default     = ""
+}

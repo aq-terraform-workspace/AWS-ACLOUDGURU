@@ -16,7 +16,8 @@ module "postgres" {
   multi_az               = true
   name                   = var.db_name
   username               = var.db_username
-  create_random_password = true
+  password               = var.db_password
+  create_random_password = false
   random_password_length = 10
   port                   = "5432"
 
