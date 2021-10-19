@@ -76,7 +76,7 @@ variable "write_kubeconfig" {
   default     = false
 }
 
-variable "kubeconfig_output_path " {
+variable "kubeconfig_output_path" {
   description = "Where to save the Kubectl config file (if `write_kubeconfig = true`)"
   default     = "./"
 }
