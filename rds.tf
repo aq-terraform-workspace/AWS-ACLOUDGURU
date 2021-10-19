@@ -32,4 +32,8 @@ module "postgres" {
   # Parameter group and option group
   create_db_option_group    = false
   create_db_parameter_group = false
+
+  # Maintenance and backup
+  maintenance_window = var.maintenance_window
+  backup_window      = var.backup_window
 }

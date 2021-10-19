@@ -29,3 +29,13 @@ variable "db_password" {
   description = "Password for DB"
   default     = ""
 }
+
+variable "maintenance_window" {
+  description = "Weekly maintenance time"
+  default     = "Sun:00:00-Sun:03:00"
+}
+
+variable "backup_window" {
+  description = "Backup time"
+  default     = "03:00-06:00"
+}
