@@ -20,7 +20,7 @@ module "base_network" {
   name             = "DEV"
   cidr             = "172.18.40.0/22"
   azs              = ["${var.region}a", "${var.region}b"]
-  public_subnets   = ["172.18.40.0/25"]
+  public_subnets   = ["172.18.40.0/25", "172.18.40.128/25"]
   private_subnets  = ["172.18.41.0/25", "172.18.41.128/25"]
   database_subnets = ["172.18.42.0/25", "172.18.42.128/25"]
 

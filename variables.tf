@@ -115,5 +115,5 @@ variable "alb_target_group_name" {
 variable "enable_cross_zone_load_balancing" {
   description = "Indicates whether cross zone load balancing should be enabled in application load balancers"
   type = bool
-  default = false
+  default = true
 }
