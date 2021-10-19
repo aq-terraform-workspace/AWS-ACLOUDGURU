@@ -47,5 +47,5 @@ resource "aws_autoscaling_attachment" "asg_attachment_bar" {
 } */
 
 output "asg_test" {
-  value = module.eks.node_groups["main-group"]
+  value = module.eks.node_groups["main-group"]["resources"][0]["autoscaling_groups"][0]["name"]
 }
