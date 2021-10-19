@@ -41,6 +41,7 @@ module "postgres_sg" {
 
   ingress_with_source_security_group_id = [
     {
+      rule        = "dmz-postgres"
       from_port   = 5432
       to_port     = 5432
       protocol    = "tcp"
