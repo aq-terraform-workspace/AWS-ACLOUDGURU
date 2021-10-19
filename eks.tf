@@ -38,7 +38,8 @@ provider "kubernetes" {
   token                  = data.aws_eks_cluster_auth.eks.token
 }
 
-output "kubeconfig" {
-  description = "kubectl config file contents for this EKS cluster. Will block on cluster creation until the cluster is really ready"
-  value = module.eks.kubeconfig
+output "node_groups" {
+  description = "Node group output"
+  value = module.eks.node_groups
 }
+
