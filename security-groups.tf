@@ -2,7 +2,7 @@ module "dmz_sg" {
   source = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name    = "dmz-database"
+  name    = "dmz_sg"
   description = "Security group for Postgres"
   vpc_id      = module.base_network.vpc_id
 
@@ -35,7 +35,7 @@ module "postgres_sg" {
   source = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name    = "sg-database"
+  name    = "database_sg"
   description = "Security group for Postgres"
   vpc_id      = module.base_network.vpc_id
 
