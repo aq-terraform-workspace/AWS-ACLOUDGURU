@@ -14,7 +14,7 @@ module "eks" {
   # Worker configuration
   node_groups = {
     "${var.node_group_name}" = {
-      name             = var.node_group_name
+      name_prefix      = var.node_group_name
       desired_capacity = var.asg_desired_size
       max_capacity     = var.asg_max_size
       min_capaicty     = var.asg_min_size
