@@ -4,6 +4,9 @@ variable "region" {
   default = "us-east-1"
 }
 
+###########################################################
+# RDS VARIABLES
+###########################################################
 variable "instance_class" {
   description = "Instance class for RDS"
 }
@@ -38,4 +41,15 @@ variable "maintenance_window" {
 variable "backup_window" {
   description = "Backup time"
   default     = "03:00-06:00"
+}
+
+###########################################################
+# EKS VARIABLES
+###########################################################
+variable "cluster_name" {
+  description = "EKS cluster name"
+}
+
+variable "instance_type" {
+  description = "EKS worker instance type"
 }

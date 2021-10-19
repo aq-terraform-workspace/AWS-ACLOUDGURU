@@ -43,9 +43,9 @@ module "postgres" {
   # monitoring_role_name = "MyRDSMonitoringRole"
   # create_monitoring_role = true
 
-  # Cloudwatch log export
-  enabled_cloudwatch_logs_exports = [
-    "postgresql",
-    "upgrade"
-  ]
+  # Cloudwatch log export. Enable this if cloudwatch log needed
+  # enabled_cloudwatch_logs_exports = [
+  #   "postgresql",
+  #   "upgrade"
+  # ]
 }
