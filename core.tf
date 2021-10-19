@@ -8,7 +8,7 @@ module "base_network" {
   azs             = ["${var.region}a", "${var.region}b"]
   public_subnets  = ["172.18.40.0/25"]
   private_subnets = ["172.18.41.0/25", "172.18.41.128/25"]
-  íolated_subnets = ["172.18.42.0/25", "172.18.42.128/25"]
+  isolated_subnets = ["172.18.42.0/25", "172.18.42.128/25"]
   create_database_subnet_group = true
   database_subnet_group_name   = "${local.vpc_name}-${random_integer.random.result}-rds"
 }
