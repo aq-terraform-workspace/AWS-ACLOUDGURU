@@ -12,7 +12,10 @@ db_storage_type   = "gp2"
 # EKS VARIABLES
 ###########################################################
 cluster_name      = "dev-eks"
+node_group_name   = "dev-eks"
 instance_type     = "t3.small"
+asg_desired_size  = 3
+asg_min_size      = 1
 asg_max_size      = 3
 
 ###########################################################
@@ -20,3 +23,4 @@ asg_max_size      = 3
 ###########################################################
 bastion_name      = "dev-linux-bastion"
 bastion_instance_type = "t3.small"
+key_name          = "linux-ssh-key"

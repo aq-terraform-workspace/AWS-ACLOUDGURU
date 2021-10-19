@@ -12,12 +12,17 @@ module "eks" {
   cluster_security_group_id = module.sg_eks.security_group_id
 
   # Worker configuration
-  worker_groups = [
-    {
+  node_groups = {
+    "${var.node_group_name}" = {
+      desired_capacity = "${var.asg_desired_size}"
+      max_capacity     = "${var.asg_max_size}"
+      min_capaicty     = "${var.asg_min_size}"
+
       instance_type = "${var.instance_type}"
-      asg_max_size  = "${var.asg_max_size}"
+      key_name      = "${var.key_name}"
     }
-  ]
+  }
+  worker_create_security_group = false
   worker_security_group_id = module.sg_eks.security_group_id
 }
 

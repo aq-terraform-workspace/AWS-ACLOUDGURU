@@ -54,8 +54,20 @@ variable "instance_type" {
   description = "EKS worker instance type"
 }
 
+variable "asg_desired_size" {
+  description = "Desired size of the ASG"
+}
+
 variable "asg_max_size" {
   description = "Max size of the ASG"
+}
+
+variable "asg_min_size" {
+  description = "Min size of the ASG"
+}
+
+variable "node_group_name" {
+  description = "Name of the node group"
 }
 
 ###########################################################
@@ -67,4 +79,14 @@ variable "bastion_name" {
 
 variable "bastion_instance_type" {
   description = "Instance type of the bastion VM"
+}
+
+variable "key_name" {
+  description = "Keyname that will be creted and used for the EC2"
+}
+
+variable "enable_monitoring" {
+  description = "Enable monitoring for Bastion or not"
+  type = bool
+  default = false
 }
