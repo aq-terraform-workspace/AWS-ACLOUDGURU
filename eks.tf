@@ -27,6 +27,9 @@ module "eks" {
   # To enable this, please set write_kubeconfig to true in auto.tfvars
   write_kubeconfig       = var.write_kubeconfig
   kubeconfig_output_path = var.kubeconfig_output_path
+
+  # Not to apply aws_auth
+  manage_aws_auth = false
 }
 
 data "aws_eks_cluster" "eks" {
