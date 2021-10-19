@@ -15,9 +15,9 @@ cluster_name     = "dev-api"
 cluster_version  = "1.21"
 node_group_name  = "main-group"
 instance_types   = ["t3.small"]
-asg_desired_size = 3
+asg_desired_size = 4
 asg_min_size     = 1
-asg_max_size     = 3
+asg_max_size     = 4
 
 ###########################################################
 # EC2 BASTION VARIABLES
