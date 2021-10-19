@@ -85,8 +85,8 @@ module "sg_eks" {
       from_port   = 5432
       to_port     = 5432
       protocol    = "tcp"
-      description = "Allow Postgres"
-      source_security_group_id = module.sg_postgrest.security_group_id
+      description = "Allow Database"
+      source_security_group_id = module.sg_database.security_group_id
     },
     {
       from_port   = 0
@@ -98,12 +98,12 @@ module "sg_eks" {
   ]
 }
 
-module "postgres_sg" {
+module "sg_database" {
   source = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
   name    = "sg_database"
-  description = "Security group for Postgres"
+  description = "Security group for Database"
   vpc_id      = module.base_network.vpc_id
 
   ingress_with_source_security_group_id = [
@@ -111,14 +111,14 @@ module "postgres_sg" {
       from_port   = 5432
       to_port     = 5432
       protocol    = "tcp"
-      description = "Allow Postgres from Bastion"
+      description = "Allow Database from Bastion"
       source_security_group_id = module.sg_dmz.security_group_id
     },
     {
       from_port   = 5432
       to_port     = 5432
       protocol    = "tcp"
-      description = "Allow Postgres from EKS"
+      description = "Allow Database from EKS"
       source_security_group_id = module.sg_eks.security_group_id
     }
   ]
