@@ -42,4 +42,10 @@ module "postgres" {
   # monitoring_interval = "30"
   # monitoring_role_name = "MyRDSMonitoringRole"
   # create_monitoring_role = true
+
+  # Cloudwatch log export
+  enabled_cloudwatch_logs_exports = [
+    "postgresql",
+    "upgrade"
+  ]
 }
