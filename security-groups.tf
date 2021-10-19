@@ -122,3 +122,29 @@ module "sg_database" {
     }
   ]
 }
+
+module "sg_eks_worker" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "4.4.0"
+
+  name        = "sg_eks_worker"
+  description = "Security group for Database"
+  vpc_id      = module.base_network.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      from_port                = 80
+      to_port                  = 80
+      protocol                 = "tcp"
+      description              = "Allow HTTP from LB"
+      source_security_group_id = module.sg_alb.security_group_id
+    },
+    {
+      from_port                = 443
+      to_port                  = 443
+      protocol                 = "tcp"
+      description              = "Allow HTTPS from LB"
+      source_security_group_id = module.sg_alb.security_group_id
+    }
+  ]
+}
