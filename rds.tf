@@ -36,4 +36,10 @@ module "postgres" {
   # Maintenance and backup
   maintenance_window = var.maintenance_window
   backup_window      = var.backup_window
+
+  # Enhanced Monitoring - see example for details on how to create the role
+  # by yourself, in case you don't want to create it automatically
+  # monitoring_interval = "30"
+  # monitoring_role_name = "MyRDSMonitoringRole"
+  # create_monitoring_role = true
 }
