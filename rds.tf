@@ -1,4 +1,4 @@
-module "postgres" {
+/* module "postgres" {
   source  = "terraform-aws-modules/rds/aws"
   version = "3.4.0"
 
@@ -31,4 +31,4 @@ module "postgres" {
   publicly_accessible = false
   storage_encrypted = false
   storage_type = var.db_storage_type
-}
+} */
