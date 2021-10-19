@@ -50,6 +50,10 @@ variable "cluster_name" {
   description = "EKS cluster name"
 }
 
+variable "cluster_version" {
+  description = "EKS Cluster version"
+}
+
 variable "instance_types" {
   description = "EKS worker instance type"
 }

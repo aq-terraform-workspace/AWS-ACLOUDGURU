@@ -2,7 +2,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "17.22.0"
 
-  cluster_version = "1.21"
+  cluster_version = var.cluster_version
   cluster_name    = var.cluster_name
   vpc_id          = module.base_network.vpc_id
   subnets         = module.base_network.private_subnets
@@ -47,5 +47,5 @@ resource "aws_autoscaling_attachment" "asg_attachment_bar" {
 } */
 
 output "asg_test" {
-  value = module.eks.node_groups
+  value = module.eks.node_groups["main-group"]
 }
