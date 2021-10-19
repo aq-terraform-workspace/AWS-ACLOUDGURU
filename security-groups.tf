@@ -86,7 +86,7 @@ module "sg_eks" {
       to_port     = 5432
       protocol    = "tcp"
       description = "Allow Postgres"
-      source_security_group_id = module.sg_postgres.security_group_id
+      source_security_group_id = module.sg_postgrest.security_group_id
     },
     {
       from_port   = 0
