@@ -34,6 +34,10 @@ module "eks" {
 
 data "aws_lb_target_group" "target_group" {
   name = var.alb_target_group_name
+
+  depends_on = [
+    module.alb
+  ]
 }
 
 # Create a new ALB Target Group attachment
