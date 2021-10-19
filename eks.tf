@@ -43,7 +43,7 @@ provider "kubernetes" {
   token                  = data.aws_eks_cluster_auth.eks.token
 }
 
-data "aws_lb_target_group" "target_group" {
+/* data "aws_lb_target_group" "target_group" {
   name = var.alb_target_group_name
 }
 
@@ -51,12 +51,12 @@ data "aws_autoscaling_group" "eks_asg" {
   name = module.eks.node_groups["resources"]["autoscaling_groups"]["name"]
 }
 
-output "asg_test" {
-  value = module.eks.node_groups
-}
-
 # Create a new ALB Target Group attachment
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   autoscaling_group_name = data.aws_autoscaling_group.eks_asg.arn
   alb_target_group_arn   = data.aws_lb_target_group.target_group.arn
+} */
+
+output "asg_test" {
+  value = module.eks.node_groups
 }
