@@ -19,7 +19,7 @@ module "postgres" {
   password               = var.db_password
   # create_random_password = true
   # random_password_length = 10
-  port                   = "5432"
+  port = "5432"
 
   # DB subnet group
   create_db_subnet_group = false

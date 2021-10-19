@@ -9,7 +9,7 @@ module "eks" {
 
   # Security Group
   cluster_create_security_group = false
-  cluster_security_group_id = module.sg_eks.security_group_id
+  cluster_security_group_id     = module.sg_eks.security_group_id
 
   # Worker configuration
   node_groups = {
@@ -23,7 +23,7 @@ module "eks" {
     }
   }
   worker_create_security_group = false
-  worker_security_group_id = module.sg_eks.security_group_id
+  worker_security_group_id     = module.sg_eks.security_group_id
 }
 
 data "aws_eks_cluster" "eks" {

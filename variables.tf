@@ -90,3 +90,7 @@ variable "enable_monitoring" {
   type = bool
   default = false
 }
+
+variable "bastion_ami" {
+  description = "AMI ID to create the bastion"
+}
