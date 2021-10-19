@@ -65,34 +65,44 @@ module "sg_eks" {
   description = "Security group for EKS"
   vpc_id      = module.base_network.vpc_id
 
-  ingress_with_source_security_group_id = [
+  # ingress_with_source_security_group_id = [
+  #   {
+  #     from_port                = 80
+  #     to_port                  = 80
+  #     protocol                 = "tcp"
+  #     description              = "Allow HTTP from LB"
+  #     source_security_group_id = module.sg_alb.security_group_id
+  #   },
+  #   {
+  #     from_port                = 443
+  #     to_port                  = 443
+  #     protocol                 = "tcp"
+  #     description              = "Allow HTTPS from LB"
+  #     source_security_group_id = module.sg_alb.security_group_id
+  #   },
+  #   {
+  #     from_port                = 5432
+  #     to_port                  = 5432
+  #     protocol                 = "tcp"
+  #     description              = "Allow Database"
+  #     source_security_group_id = module.sg_database.security_group_id
+  #   },
+  #   {
+  #     from_port                = 0
+  #     to_port                  = 0
+  #     protocol                 = "-1"
+  #     description              = "Allow all from Bastion"
+  #     source_security_group_id = module.sg_dmz.security_group_id
+  #   }
+  # ]
+
+  ingress_with_cidr_blocks = [
     {
-      from_port                = 80
-      to_port                  = 80
-      protocol                 = "tcp"
-      description              = "Allow HTTP from LB"
-      source_security_group_id = module.sg_alb.security_group_id
-    },
-    {
-      from_port                = 443
-      to_port                  = 443
-      protocol                 = "tcp"
-      description              = "Allow HTTPS from LB"
-      source_security_group_id = module.sg_alb.security_group_id
-    },
-    {
-      from_port                = 5432
-      to_port                  = 5432
-      protocol                 = "tcp"
-      description              = "Allow Database"
-      source_security_group_id = module.sg_database.security_group_id
-    },
-    {
-      from_port                = 0
-      to_port                  = 0
-      protocol                 = "-1"
-      description              = "Allow all from Bastion"
-      source_security_group_id = module.sg_dmz.security_group_id
+      from_port   = "0"
+      to_port     = "0"
+      protocol    = "-1"
+      description = "Allow all local traffic"
+      cidr_blocks = module.base_network.vpc_cidr_block
     }
   ]
 }
@@ -110,7 +120,7 @@ module "sg_database" {
       from_port                = 5432
       to_port                  = 5432
       protocol                 = "tcp"
-      description              = "Allow Database from Bastion"
+      description              = "Allow Database from Bastion for troubleshooting"
       source_security_group_id = module.sg_dmz.security_group_id
     },
     {
@@ -119,32 +129,6 @@ module "sg_database" {
       protocol                 = "tcp"
       description              = "Allow Database from EKS"
       source_security_group_id = module.sg_eks.security_group_id
-    }
-  ]
-}
-
-module "sg_eks_worker" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "4.4.0"
-
-  name        = "sg_eks_worker"
-  description = "Security group for Database"
-  vpc_id      = module.base_network.vpc_id
-
-  ingress_with_source_security_group_id = [
-    {
-      from_port                = 80
-      to_port                  = 80
-      protocol                 = "tcp"
-      description              = "Allow HTTP from LB"
-      source_security_group_id = module.sg_alb.security_group_id
-    },
-    {
-      from_port                = 443
-      to_port                  = 443
-      protocol                 = "tcp"
-      description              = "Allow HTTPS from LB"
-      source_security_group_id = module.sg_alb.security_group_id
     }
   ]
 }
