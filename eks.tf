@@ -1,4 +1,4 @@
-module "eks" {
+/* module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "17.22.0"
 
@@ -27,7 +27,7 @@ module "eks" {
   # To enable this, please set write_kubeconfig to true in auto.tfvars
   write_kubeconfig       = var.write_kubeconfig
   kubeconfig_output_path = var.kubeconfig_output_path
-}
+} */
 
 data "aws_eks_cluster" "eks" {
   name = module.eks.cluster_id
