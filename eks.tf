@@ -1,4 +1,4 @@
-/* module "eks" {
+module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "17.22.0"
 
@@ -43,13 +43,16 @@ provider "kubernetes" {
   token                  = data.aws_eks_cluster_auth.eks.token
 }
 
-output "node_groups" {
-  description = "Node group output"
-  value       = module.eks.node_groups
+data "aws_lb_target_group" "target_group" {
+  name = var.alb_target_group_name
+}
+
+data "aws_autoscaling_group" "eks_asg" {
+  name = module.eks.node_groups.resources.autoscaling_groups.name
 }
 
 # Create a new ALB Target Group attachment
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
-  autoscaling_group_name = module.eks.node_groups.resources.autoscaling_groups.name
-  alb_target_group_arn   = module.alb.target_group_arns[0]
-} */
+  autoscaling_group_name = data.aws_autoscaling_group.eks_asg.arn
+  alb_target_group_arn   = data.aws_lb_target_group.target_group.arn
+}
