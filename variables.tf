@@ -108,6 +108,10 @@ variable "alb_name" {
   description = "Name of the ALB"
 }
 
+variable "alb_target_group_name" {
+  description = "Name of the target group"
+}
+
 variable "enable_cross_zone_load_balancing" {
   description = "Indicates whether cross zone load balancing should be enabled in application load balancers"
   type = bool
