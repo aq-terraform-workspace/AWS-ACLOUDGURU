@@ -53,3 +53,18 @@ variable "cluster_name" {
 variable "instance_type" {
   description = "EKS worker instance type"
 }
+
+variable "asg_max_size" {
+  description = "Max size of the ASG"
+}
+
+###########################################################
+# EC2 BASTION VARIABLES
+###########################################################
+variable "bastion_name" {
+  description = "Name of bastion VM"
+}
+
+variable "bastion_instance_type" {
+  description = "Instance type of the bastion VM"
+}
