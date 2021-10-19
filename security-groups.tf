@@ -104,7 +104,7 @@ module "sg_eks" {
       from_port                = 0
       to_port                  = 0
       protocol                 = "-1"
-      description              = "Allow all from Bastion"
+      description              = "Allow all traffic from Bastion"
       source_security_group_id = module.sg_dmz.security_group_id
     }
   ]
