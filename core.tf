@@ -22,6 +22,7 @@ module "base_network" {
   azs             = ["${var.region}a", "${var.region}b"]
   public_subnets  = ["172.18.40.0/25"]
   private_subnets = ["172.18.41.0/25", "172.18.41.128/25"]
+  database_subnets = ["172.18.42.0/25", "172.18.42.128/25"]
 
   # Public subnet configuration
   create_igw = true
