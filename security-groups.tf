@@ -122,22 +122,3 @@ module "sg_database" {
     }
   ]
 }
-
-module "sg_eks_worker_access" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "4.4.0"
-
-  name        = "sg_eks_worker_access"
-  description = "Security group for accessing the eks worker by SSH"
-  vpc_id      = module.base_network.vpc_id
-
-  ingress_with_cidr_blocks = [
-    {
-      from_port   = 22
-      to_port     = 22
-      protocol    = "tcp"
-      description = "Allow SSH from local"
-      cidr_blocks = module.base_network.vpc_cidr_block
-    }
-  ]
-}

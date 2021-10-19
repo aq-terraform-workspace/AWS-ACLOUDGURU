@@ -20,7 +20,6 @@ module "eks" {
       min_capaicty     = var.asg_min_size
       instance_types   = var.instance_types
       key_name         = var.key_name
-      additional_security_group_ids = ["${module.sg_eks_worker_access.security_group_id}"]
     }
   }
 
@@ -49,3 +48,8 @@ output "node_groups" {
   value       = module.eks.node_groups
 }
 
+# Create a new ALB Target Group attachment
+resource "aws_autoscaling_attachment" "asg_attachment_bar" {
+  autoscaling_group_name = module.eks.node_groups.resources.autoscaling_groups.name
+  alb_target_group_arn   = module.alb.target_group_arns[0]
+}

@@ -11,8 +11,8 @@ db_storage_type   = "gp2"
 ###########################################################
 # EKS VARIABLES
 ###########################################################
-cluster_name     = "dev-eks"
-node_group_name  = "dev-eks"
+cluster_name     = "dev-api"
+node_group_name  = "main-"
 instance_types   = ["t3.small"]
 asg_desired_size = 3
 asg_min_size     = 1
