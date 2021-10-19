@@ -30,3 +30,4 @@ bastion_ami           = "ami-0a99b06fad09f48df"
 # LOAD BALANCER VARIABLES
 ###########################################################
 alb_name = "dev"
+alb_target_group_name = "dev-api"

@@ -11,10 +11,14 @@ module "alb" {
 
   target_groups = [
     {
-      name_prefix      = "pref-"
+      name             = "${var.alb_target_group_name}"
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
+      health_check     = {
+        enabled = true
+        
+      }
     }
   ]
 
@@ -25,17 +29,4 @@ module "alb" {
       target_group_index = 0
     }
   ]
-/* 
-  http_tcp_listeners = [
-    {
-      port        = 80
-      protocol    = "HTTP"
-      action_type = "redirect"
-      redirect = {
-        port        = "443"
-        protocol    = "HTTPS"
-        status_code = "HTTP_301"
-      }
-    }
-  ] */
 }
