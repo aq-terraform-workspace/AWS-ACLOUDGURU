@@ -22,8 +22,6 @@ module "eks" {
       key_name      = "${var.key_name}"
     }
   }
-  worker_create_security_group = false
-  worker_security_group_id     = module.sg_eks.security_group_id
 }
 
 data "aws_eks_cluster" "eks" {

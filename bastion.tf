@@ -15,6 +15,6 @@ module "ec2-instance" {
   instance_type          = var.bastion_instance_type
   key_name               = var.key_name
   monitoring             = var.enable_monitoring
-  vpc_security_group_ids = [var.sg_dmz.security_group_id]
+  vpc_security_group_ids = [module.sg_dmz.security_group_id]
   subnet_id              = module.base_network.public_subnets[0]
 }
