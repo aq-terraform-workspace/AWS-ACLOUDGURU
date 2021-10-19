@@ -9,7 +9,7 @@ module "postgres" {
   engine_version         = "13.4"
   instance_class         = var.instance_class
   allocated_storage      = var.allocated_storage
-  vpc_security_group_ids = module.sg_database.security_group_id
+  vpc_security_group_ids = [module.sg_database.security_group_id]
   publicly_accessible    = false
   storage_encrypted      = false
   storage_type           = var.db_storage_type
@@ -22,7 +22,7 @@ module "postgres" {
 
   # DB subnet group
   create_db_subnet_group = false
-  db_subnet_group_name   = [module.base_network.database_subnet_group_name]
+  db_subnet_group_name   = module.base_network.database_subnet_group_name
 
   # Upgrade control
   auto_minor_version_upgrade  = true
