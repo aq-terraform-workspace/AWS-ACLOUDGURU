@@ -37,7 +37,7 @@ data "aws_lb_target_group" "target_group" {
 }
 
 # Create a new ALB Target Group attachment
-resource "aws_autoscaling_attachment" "asg_attachment_bar" {
+resource "aws_autoscaling_attachment" "asg_attachment" {
   autoscaling_group_name = module.eks.node_groups["main-group"]["resources"][0]["autoscaling_groups"][0]["name"]
   alb_target_group_arn   = data.aws_lb_target_group.target_group.arn
 }

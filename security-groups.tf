@@ -25,8 +25,18 @@ module "sg_dmz" {
       from_port   = "0"
       to_port     = "0"
       protocol    = "-1"
-      description = "Allow all local traffic"
+      description = "Allow traffic from Local"
       cidr_blocks = module.base_network.vpc_cidr_block
+    }
+  ]
+
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      description = "Allow Output to All"
+      cidr_blocks = "0.0.0.0/0"
     }
   ]
 }
@@ -55,6 +65,16 @@ module "sg_alb" {
       cidr_blocks = "0.0.0.0/0"
     }
   ]
+
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      description = "Allow Output to All"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
 }
 
 module "sg_eks" {
@@ -65,43 +85,36 @@ module "sg_eks" {
   description = "Security group for EKS"
   vpc_id      = module.base_network.vpc_id
 
-  # ingress_with_source_security_group_id = [
-  #   {
-  #     from_port                = 80
-  #     to_port                  = 80
-  #     protocol                 = "tcp"
-  #     description              = "Allow HTTP from LB"
-  #     source_security_group_id = module.sg_alb.security_group_id
-  #   },
-  #   {
-  #     from_port                = 443
-  #     to_port                  = 443
-  #     protocol                 = "tcp"
-  #     description              = "Allow HTTPS from LB"
-  #     source_security_group_id = module.sg_alb.security_group_id
-  #   },
-  #   {
-  #     from_port                = 5432
-  #     to_port                  = 5432
-  #     protocol                 = "tcp"
-  #     description              = "Allow Database"
-  #     source_security_group_id = module.sg_database.security_group_id
-  #   },
-  #   {
-  #     from_port                = 0
-  #     to_port                  = 0
-  #     protocol                 = "-1"
-  #     description              = "Allow all from Bastion"
-  #     source_security_group_id = module.sg_dmz.security_group_id
-  #   }
-  # ]
-
-  ingress_with_cidr_blocks = [
+  ingress_with_source_security_group_id = [
     {
-      from_port   = "0"
-      to_port     = "0"
+      from_port                = 0
+      to_port                  = 0
+      protocol                 = "tcp"
+      description              = "Allow all traffic from LB"
+      source_security_group_id = module.sg_alb.security_group_id
+    },
+    {
+      from_port                = 5432
+      to_port                  = 5432
+      protocol                 = "tcp"
+      description              = "Allow traffic from DB"
+      source_security_group_id = module.sg_database.security_group_id
+    },
+    {
+      from_port                = 0
+      to_port                  = 0
+      protocol                 = "-1"
+      description              = "Allow all from Bastion"
+      source_security_group_id = module.sg_dmz.security_group_id
+    }
+  ]
+
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 0
       protocol    = "-1"
-      description = "Allow all local traffic"
+      description = "Allow output to Local"
       cidr_blocks = module.base_network.vpc_cidr_block
     }
   ]
@@ -129,6 +142,16 @@ module "sg_database" {
       protocol                 = "tcp"
       description              = "Allow Database from EKS"
       source_security_group_id = module.sg_eks.security_group_id
+    }
+  ]
+
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      description = "Allow output to Local"
+      cidr_blocks = module.base_network.vpc_cidr_block
     }
   ]
 }
