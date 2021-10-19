@@ -94,3 +94,9 @@ variable "enable_monitoring" {
 variable "bastion_ami" {
   description = "AMI ID to create the bastion"
 }
+
+variable "associate_public_ip_address" {
+  description = "Assign pubblic IP to instance or not"
+  type = bool
+  default = true
+}

@@ -20,13 +20,6 @@ resource "tls_private_key" "linux_ssh_key" {
   algorithm = "RSA"
 }
 
-# Save private key file to local
-resource "local_file" "private_key" {
-  count        = length(tls_private_key.linux_ssh_key)
-  content      = local.private_ssh_key
-  filename     = "./creds/private_ssh_key.pem"
-}
-
 resource "aws_ssm_parameter" "credential" {
   name        = var.parameter_name
   type        = "SecureString"
