@@ -27,7 +27,7 @@
   # To enable this, please set write_kubeconfig to true in auto.tfvars
   write_kubeconfig       = var.write_kubeconfig
   kubeconfig_output_path = var.kubeconfig_output_path
-} */
+}
 
 data "aws_eks_cluster" "eks" {
   name = module.eks.cluster_id
@@ -52,4 +52,4 @@ output "node_groups" {
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   autoscaling_group_name = module.eks.node_groups.resources.autoscaling_groups.name
   alb_target_group_arn   = module.alb.target_group_arns[0]
-}
+} */
