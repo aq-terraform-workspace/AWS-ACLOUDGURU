@@ -19,3 +19,8 @@ variable "db_name" {
 variable "db_username" {
   description = "DB Username"
 }
+
+variable "db_storage_type" {
+  description = "Storage type for DB"
+  default = "gp2"
+}

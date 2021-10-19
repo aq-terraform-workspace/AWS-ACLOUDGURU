@@ -17,6 +17,10 @@ module "postgres" {
   auto_minor_version_upgrade = true
   allow_major_version_upgrade = false
 
+  # Parameter group and option group
+  create_db_option_group = false
+  create_db_parameter_group = false
+
   # Configuration
   multi_az = true
   name     = var.db_name
@@ -25,5 +29,6 @@ module "postgres" {
   random_password_length = 10
   port     = "5432"
   publicly_accessible = false
-
+  storage_encrypted = false
+  storage_type = var.db_storage_type
 }
