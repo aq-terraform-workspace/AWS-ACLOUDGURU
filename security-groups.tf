@@ -1,8 +1,8 @@
 module "sg_dmz" {
-  source = "terraform-aws-modules/security-group/aws"
+  source  = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name    = "sg_dmz"
+  name        = "sg_dmz"
   description = "Security group for Bastion"
   vpc_id      = module.base_network.vpc_id
 
@@ -33,10 +33,10 @@ module "sg_dmz" {
 }
 
 module "sg_alb" {
-  source = "terraform-aws-modules/security-group/aws"
+  source  = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name    = "sg_alb"
+  name        = "sg_alb"
   description = "Security group for Load Balancer"
   vpc_id      = module.base_network.vpc_id
 
@@ -59,66 +59,66 @@ module "sg_alb" {
 }
 
 module "sg_eks" {
-  source = "terraform-aws-modules/security-group/aws"
+  source  = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name    = "sg_eks"
+  name        = "sg_eks"
   description = "Security group for EKS"
   vpc_id      = module.base_network.vpc_id
 
   ingress_with_source_security_group_id = [
     {
-      from_port   = 80
-      to_port     = 80
-      protocol    = "tcp"
-      description = "Allow HTTP from LB"
+      from_port                = 80
+      to_port                  = 80
+      protocol                 = "tcp"
+      description              = "Allow HTTP from LB"
       source_security_group_id = module.sg_alb.security_group_id
     },
     {
-      from_port   = 443
-      to_port     = 443
-      protocol    = "tcp"
-      description = "Allow HTTPS from LB"
+      from_port                = 443
+      to_port                  = 443
+      protocol                 = "tcp"
+      description              = "Allow HTTPS from LB"
       source_security_group_id = module.sg_alb.security_group_id
     },
     {
-      from_port   = 5432
-      to_port     = 5432
-      protocol    = "tcp"
-      description = "Allow Database"
+      from_port                = 5432
+      to_port                  = 5432
+      protocol                 = "tcp"
+      description              = "Allow Database"
       source_security_group_id = module.sg_database.security_group_id
     },
     {
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      description = "Allow all from Bastion"
+      from_port                = 0
+      to_port                  = 0
+      protocol                 = "-1"
+      description              = "Allow all from Bastion"
       source_security_group_id = module.sg_dmz.security_group_id
     }
   ]
 }
 
 module "sg_database" {
-  source = "terraform-aws-modules/security-group/aws"
+  source  = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name    = "sg_database"
+  name        = "sg_database"
   description = "Security group for Database"
   vpc_id      = module.base_network.vpc_id
 
   ingress_with_source_security_group_id = [
     {
-      from_port   = 5432
-      to_port     = 5432
-      protocol    = "tcp"
-      description = "Allow Database from Bastion"
+      from_port                = 5432
+      to_port                  = 5432
+      protocol                 = "tcp"
+      description              = "Allow Database from Bastion"
       source_security_group_id = module.sg_dmz.security_group_id
     },
     {
-      from_port   = 5432
-      to_port     = 5432
-      protocol    = "tcp"
-      description = "Allow Database from EKS"
+      from_port                = 5432
+      to_port                  = 5432
+      protocol                 = "tcp"
+      description              = "Allow Database from EKS"
       source_security_group_id = module.sg_eks.security_group_id
     }
   ]

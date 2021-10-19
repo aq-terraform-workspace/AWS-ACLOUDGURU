@@ -22,5 +22,5 @@ variable "db_username" {
 
 variable "db_storage_type" {
   description = "Storage type for DB"
-  default = "gp2"
+  default     = "gp2"
 }
