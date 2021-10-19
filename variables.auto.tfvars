@@ -12,4 +12,4 @@ db_storage_type   = "gp2"
 # EKS VARIABLES
 ###########################################################
 cluster_name      = "dev-eks"
-instance_type     = "t3.small"
+instance_type     = "t3.medium"
