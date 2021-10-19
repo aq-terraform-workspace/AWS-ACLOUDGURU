@@ -17,7 +17,7 @@ module "postgres" {
   name                   = var.db_name
   username               = var.db_username
   password               = var.db_password
-  create_random_password = false
+  # create_random_password = true
   # random_password_length = 10
   port                   = "5432"
 
