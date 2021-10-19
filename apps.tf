@@ -1,7 +1,7 @@
 #################################################################################
 # DATASOURCE
 #################################################################################
-data "aws_lb" "core_lb" {
+/* data "aws_lb" "core_lb" {
   name = "${local.lb_name}-${random_integer.random.result}"
 
   depends_on = [module.lb]
@@ -34,13 +34,13 @@ data "aws_subnet_ids" "private_subnets" {
 data "aws_lb_listener" "http_listener" {
   load_balancer_arn = data.aws_lb.core_lb.arn
   port              = 80
-}
+} */
 
 
 #################################################################################
 # ECS APP
 #################################################################################
-module "monitoring_ecs" {
+/* module "monitoring_ecs" {
   source                         = "git::https://github.com/aq-terraform-modules/terraform-aws-ecs.git?ref=dev"
   name                           = "monitoring-${random_integer.random.result}"
   region                         = var.region
@@ -66,4 +66,4 @@ module "monitoring_ecs" {
     data.aws_route53_zone.main_zone,
     data.aws_lb_listener.http_listener
   ]
-}
+} */
