@@ -35,6 +35,7 @@ module "base_network" {
   create_database_subnet_group = true
   create_database_subnet_route_table = false
   create_database_internet_gateway_route = false
+  database_subnet_group_name = "postgres"
 }
 
 #################################################################################
