@@ -1,7 +1,7 @@
 #################################################################################
 # BASE NETWORK CREATION
 #################################################################################
-module "base_network" {
+/* module "base_network" {
   source          = "git::https://github.com/aq-terraform-modules/terraform-aws-base-network.git?ref=dev"
   name            = "${local.vpc_name}-${random_integer.random.result}"
   cidr_block      = "172.18.40.0/22"
@@ -10,7 +10,31 @@ module "base_network" {
   private_subnets = ["172.18.41.0/25", "172.18.41.128/25"]
   isolated_subnets = ["172.18.42.0/25", "172.18.42.128/25"]
   create_database_subnet_group = true
-  database_subnet_group_name   = "${local.vpc_name}-${random_integer.random.result}-rds"
+  database_subnet_group_name   = "${local.vpc_name}-${random_integer.random.result}-database"
+} */
+
+module "base_network" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "3.10.0"
+
+  name    = "DEV"
+  cidr = "172.18.40.0/22"
+  azs             = ["${var.region}a", "${var.region}b"]
+  public_subnets  = ["172.18.40.0/25"]
+  private_subnets = ["172.18.41.0/25", "172.18.41.128/25"]
+
+  # Public subnet configuration
+  create_igw = true
+
+  # NAT Gateway Configuration
+  enable_nat_gateway = true
+  single_nat_gateway = true
+  one_nat_gateway_per_az = false
+
+  # Database Configuration
+  create_database_subnet_group = true
+  create_database_subnet_route_table = false
+  create_database_internet_gateway_route = false
 }
 
 #################################################################################
@@ -39,11 +63,10 @@ module "cloudflare_records" {
 #################################################################################
 # LOAD BALANCER CREATION
 #################################################################################
-/* module "lb" {
+module "lb" {
   source          = "git::https://github.com/aq-terraform-modules/terraform-aws-alb.git?ref=dev"
   name            = "${local.lb_name}-${random_integer.random.result}"
   subnets         = module.base_network.public_subnets
   security_groups = [module.base_network.default_security_group_id]
   vpc_id          = module.base_network.vpc_id
 }
- */
