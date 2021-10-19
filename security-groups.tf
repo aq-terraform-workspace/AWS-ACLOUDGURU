@@ -127,7 +127,7 @@ module "sg_eks_worker_access" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name        = "sg_database"
+  name        = "sg_eks_worker_access"
   description = "Security group for accessing the eks worker by SSH"
   vpc_id      = module.base_network.vpc_id
 
