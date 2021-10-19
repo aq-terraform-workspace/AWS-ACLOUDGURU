@@ -2,9 +2,9 @@ module "alb" {
   source  = "HDE/alb/aws"
   version = "6.3.0"
 
-  name = var.alb_name
-  vpc_id = module.base_network.vpc_id
-  subnets = module.base_network.public_subnets
+  name            = var.alb_name
+  vpc_id          = module.base_network.vpc_id
+  subnets         = module.base_network.public_subnets
   security_groups = [module.sg_alb.security_group_id]
 
   enable_cross_zone_load_balancing = var.enable_cross_zone_load_balancing

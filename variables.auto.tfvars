@@ -13,7 +13,7 @@ db_storage_type   = "gp2"
 ###########################################################
 cluster_name     = "dev-eks"
 node_group_name  = "dev-eks"
-instance_type    = "t3.small"
+instance_types   = ["t3.small"]
 asg_desired_size = 3
 asg_min_size     = 1
 asg_max_size     = 3
@@ -29,5 +29,5 @@ bastion_ami           = "ami-0a99b06fad09f48df"
 ###########################################################
 # LOAD BALANCER VARIABLES
 ###########################################################
-alb_name = "dev"
+alb_name              = "dev"
 alb_target_group_name = "dev-api"

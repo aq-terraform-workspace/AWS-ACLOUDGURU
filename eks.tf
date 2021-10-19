@@ -14,14 +14,20 @@ module "eks" {
   # Worker configuration
   node_groups = {
     "${var.node_group_name}" = {
-      desired_capacity = "${var.asg_desired_size}"
-      max_capacity     = "${var.asg_max_size}"
-      min_capaicty     = "${var.asg_min_size}"
-
-      instance_type = "${var.instance_type}"
-      key_name      = "${var.key_name}"
+      name             = var.node_group_name
+      desired_capacity = var.asg_desired_size
+      max_capacity     = var.asg_max_size
+      min_capaicty     = var.asg_min_size
+      instance_types   = var.instance_types
+      key_name         = var.key_name
+      source_security_group_ids = [module.sg_eks_worker_access.security_group_id]
     }
   }
+
+  # Write out kubeconfig file to use with kubectl
+  # To enable this, please set write_kubeconfig to true in auto.tfvars
+  write_kubeconfig       = var.write_kubeconfig
+  kubeconfig_output_path = var.kubeconfig_output_path
 }
 
 data "aws_eks_cluster" "eks" {
@@ -40,6 +46,6 @@ provider "kubernetes" {
 
 output "node_groups" {
   description = "Node group output"
-  value = module.eks.node_groups
+  value       = module.eks.node_groups
 }
 

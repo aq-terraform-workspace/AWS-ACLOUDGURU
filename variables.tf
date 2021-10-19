@@ -50,7 +50,7 @@ variable "cluster_name" {
   description = "EKS cluster name"
 }
 
-variable "instance_type" {
+variable "instance_types" {
   description = "EKS worker instance type"
 }
 
@@ -70,6 +70,17 @@ variable "node_group_name" {
   description = "Name of the node group"
 }
 
+variable "write_kubeconfig" {
+  description = "Whether to write a Kubectl config file containing the cluster configuration. Saved to `kubeconfig_output_path`."
+  type        = bool
+  default     = false
+}
+
+variable "kubeconfig_output_path " {
+  description = "Where to save the Kubectl config file (if `write_kubeconfig = true`)"
+  default     = "./"
+}
+
 ###########################################################
 # EC2 BASTION VARIABLES
 ###########################################################
@@ -87,8 +98,8 @@ variable "key_name" {
 
 variable "enable_monitoring" {
   description = "Enable monitoring for Bastion or not"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "bastion_ami" {
@@ -97,8 +108,8 @@ variable "bastion_ami" {
 
 variable "associate_public_ip_address" {
   description = "Assign pubblic IP to instance or not"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 ###########################################################
@@ -114,6 +125,6 @@ variable "alb_target_group_name" {
 
 variable "enable_cross_zone_load_balancing" {
   description = "Indicates whether cross zone load balancing should be enabled in application load balancers"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
