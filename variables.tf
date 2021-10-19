@@ -11,3 +11,11 @@ variable "instance_class" {
 variable "allocated_storage" {
   description = "RDS allocated storage"
 }
+
+variable "db_name" {
+  description = "DB name"
+}
+
+variable "db_username" {
+  description = "DB Username"
+}
