@@ -1,11 +1,11 @@
 variable "region" {
   description = "AWS Region"
-  default = "us-east-1"
+  default     = "us-east-1"
 }
 
 variable "stage" {
   description = "Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'"
-  default = "dev"
+  default     = "dev"
 }
 
 variable "common_tags" {
@@ -25,7 +25,7 @@ variable "instance_class" {
 
 variable "postgres_version" {
   description = "Version of the postgres DB that will be created"
-  default = "13.4"
+  default     = "13.4"
 }
 
 variable "allocated_storage" {
@@ -68,28 +68,28 @@ variable "cluster_version" {
 
 variable "instance_types" {
   description = "Node group's instance type(s). Multiple types can be specified when capacity_type='SPOT'"
-  type = list(string)
-  default = ["t3.small"]
+  type        = list(string)
+  default     = ["t3.small"]
 }
 
 variable "asg_desired_size" {
   description = "Desired number of workers"
-  default = 1
+  default     = 1
 }
 
 variable "asg_max_size" {
   description = "Max number of workers"
-  default = 2
+  default     = 2
 }
 
 variable "asg_min_size" {
   description = "	Min number of workers"
-  default = 1
+  default     = 1
 }
 
 variable "node_group_name" {
   description = "Name of the node group"
-  default = "main-group"
+  default     = "main-group"
 }
 
 variable "write_kubeconfig" {

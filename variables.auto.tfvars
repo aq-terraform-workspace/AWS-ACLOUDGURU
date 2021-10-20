@@ -2,14 +2,14 @@
 stage = "dev"
 
 ### RDS VARIABLES ###
-instance_class    = "db.t3.small"
-postgres_version  = "13.4"
-allocated_storage = 50
-db_username       = "postgres_admin"
-db_password       = "passw0rd"
-db_storage_type   = "gp2"
+instance_class     = "db.t3.small"
+postgres_version   = "13.4"
+allocated_storage  = 50
+db_username        = "postgres_admin"
+db_password        = "passw0rd"
+db_storage_type    = "gp2"
 maintenance_window = "Sun:00:00-Sun:03:00"
-backup_window = "03:00-06:00"
+backup_window      = "03:00-06:00"
 
 ### EKS VARIABLES ###
 cluster_version  = "1.21"

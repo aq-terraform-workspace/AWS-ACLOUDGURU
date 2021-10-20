@@ -32,8 +32,8 @@ module "eks" {
       # Use only 1 of these 2 option to control the number of nodes available during the node automatic update
       # update_config.max_unavailable_percentage = var.max_unavailable_percentage
       # update_config.max_unavailable            = var.max_unavailable
-      additional_tags           = {
-        "k8s.io/cluster-autoscaler/enabled" = "true"
+      additional_tags = {
+        "k8s.io/cluster-autoscaler/enabled"                = "true"
         "k8s.io/cluster-autoscaler/${module.eks_label.id}" = "owned"
       }
     }

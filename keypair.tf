@@ -1,5 +1,5 @@
 locals {
-  key_name = module.keypair_label.id
+  key_name       = module.keypair_label.id
   parameter_name = "${module.keypair_label.id}-private-key"
 }
 

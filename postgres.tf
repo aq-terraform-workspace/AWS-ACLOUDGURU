@@ -3,7 +3,7 @@ module "postgres_label" {
   source     = "cloudposse/label/null"
   version    = "0.25.0"
   attributes = ["postgres"]
-  delimiter = ""
+  delimiter  = ""
   context    = module.base_label.context
 }
 
