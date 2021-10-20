@@ -62,9 +62,9 @@ resource "aws_security_group_rule" "additional_node_rule" {
   protocol                 = "-1"
   source_security_group_id = module.sg_alb.security_group_id
   description              = "Allow all traffic from LB to node"
-  security_group_id        = module.eks.node_groups[0]["remote_access"][0]["source_security_group_ids"][0]
+  security_group_id        = module.eks.node_groups[0]["remote_access"][0]["source_security_group_ids"]
 }
 
 output "test" {
-  value = module.eks.node_groups
+  value = module.eks.node_groups[0]["remote_access"][0]["source_security_group_ids"
 }
