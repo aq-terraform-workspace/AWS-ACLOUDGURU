@@ -19,7 +19,7 @@ module "eks" {
       min_capaicty                  = var.asg_min_size
       instance_types                = var.instance_types
       key_name                      = var.key_name
-      additional_security_group_ids = [module.sg_eks.security_group_id]
+      source_security_group_ids = ["${module.sg_eks.security_group_id}"]
     }
   }
 
