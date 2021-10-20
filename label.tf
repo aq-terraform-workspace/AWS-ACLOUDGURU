@@ -4,6 +4,7 @@ module "base_label" {
 
   stage     = var.stage
   delimiter = "-"
+  labels_as_tags = ["stage", "attributes"]
 
   tags = var.common_tags
 }
