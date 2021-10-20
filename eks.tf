@@ -41,7 +41,7 @@ resource "aws_autoscaling_attachment" "asg_attachment" {
   alb_target_group_arn   = module.alb.target_group_arns[0]
 }
 
-resource "aws_security_group_rule" "additional_node_rule" {
+/* resource "aws_security_group_rule" "additional_node_rule" {
   type                     = "ingress"
   from_port                = 0
   to_port                  = 0
@@ -49,4 +49,4 @@ resource "aws_security_group_rule" "additional_node_rule" {
   source_security_group_id = module.sg_alb.security_group_id
   description              = "Allow all traffic from LB to node"
   security_group_id        = module.eks.node_groups["main-group"]["remote_access"][0]["source_security_group_ids"][0]
-}
+} */
