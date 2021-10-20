@@ -2,6 +2,7 @@ module "sg_label" {
   source     = "cloudposse/label/null"
   version    = "0.25.0"
   attributes = ["sg"]
+  labels_as_tags = []
   context    = module.base_label.context
 }
 
