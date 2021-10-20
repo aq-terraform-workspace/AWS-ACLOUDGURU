@@ -16,4 +16,5 @@ module "ssh_key" {
   type           = "ssh"
   parameter_name = local.parameter_name
   key_name       = local.key_name
+  tags           = module.keypair_label.tags
 }
