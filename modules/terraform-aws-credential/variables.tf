@@ -21,11 +21,15 @@ variable "override_special" {
 }
 
 variable "parameter_name" {
-    description = "Name for parameter to be saved"
+  description = "Name for parameter to be saved"
     
 }
 
 variable "key_name"{
-    description = "Name for keypair to be created in AWS"
+  description = "Name for keypair to be created in AWS"
     
+}
+
+variable "tags" {
+  description = "Tag for resources"
 }

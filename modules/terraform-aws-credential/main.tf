@@ -25,22 +25,16 @@ resource "aws_ssm_parameter" "credential" {
   type        = "SecureString"
   value       = var.type == "password" ? random_password.random_password[0].result : tls_private_key.linux_ssh_key[0].private_key_pem
   overwrite   = true
-  tags        = {
-    Name = var.parameter_name
-  }
+  tags        = var.tags
+
   lifecycle {
-    ignore_changes = [tags, value]
+    ignore_changes = [value]
   }
 }
 
 resource "aws_key_pair" "linux_public_key" {
-  key_name   = local.key_name
+  key_name   = var.key_name
   count      = var.type == "ssh" ? 1 : 0
   public_key = tls_private_key.linux_ssh_key[0].public_key_openssh
-  tags       = {
-    Name = local.key_name
-  }
-  lifecycle {
-    ignore_changes = [tags]
-  }
+  tags       = var.tags
 }
