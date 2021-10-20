@@ -14,16 +14,16 @@ module "eks" {
   # Worker configuration
   node_groups = {
     "${var.node_group_name}" = {
-      name_prefix                   = var.node_group_name
-      desired_capacity              = var.asg_desired_size
-      max_capacity                  = var.asg_max_size
-      min_capaicty                  = var.asg_min_size
-      instance_types                = var.instance_types
-      key_name                      = var.key_name
+      name_prefix               = var.node_group_name
+      desired_capacity          = var.asg_desired_size
+      max_capacity              = var.asg_max_size
+      min_capaicty              = var.asg_min_size
+      instance_types            = var.instance_types
+      key_name                  = var.key_name
       source_security_group_ids = ["${module.sg_dmz.security_group_id}"]
       # Use only 1 of these 2 option to control the number of nodes available during the node automatic update
       # update_config.max_unavailable_percentage = var.max_unavailable_percentage
-      # update_config.max_unavailable = var.max_unavailable
+      # update_config.max_unavailable            = var.max_unavailable
     }
   }
 
@@ -41,6 +41,12 @@ resource "aws_autoscaling_attachment" "asg_attachment" {
   alb_target_group_arn   = module.alb.target_group_arns[0]
 }
 
-output "test" {
-  value = module.eks.node_groups
+resource "aws_security_group_rule" "additional_node_rule" {
+  type                     = "ingress"
+  from_port                = 0
+  to_port                  = 0
+  protocol                 = "-1"
+  source_security_group_id = module.sg_alb.security_group_id
+  description              = "Allow all traffic from LB to node"
+  security_group_id        = module.eks.node_groups["main-group"]["remote_access"][0]["source_security_group_ids"][0]
 }

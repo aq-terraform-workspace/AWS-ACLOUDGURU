@@ -87,12 +87,12 @@ variable "kubeconfig_output_path" {
 
 variable "max_unavailable_percentage" {
   description = "Max percentage of unavailable nodes during update. (e.g. 25, 50, etc)"
-  default = ""
+  default     = ""
 }
 
 variable "max_unavailable" {
   description = "Max number of unavailable nodes during update"
-  default = ""
+  default     = ""
 }
 
 ###########################################################
