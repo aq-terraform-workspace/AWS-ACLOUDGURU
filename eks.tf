@@ -50,8 +50,8 @@ module "eks" {
 }
 
 # Create a new ALB Target Group attachment
-/* resource "aws_autoscaling_attachment" "asg_attachment" {
-  autoscaling_group_name = module.eks.node_groups["main-group"]["resources"][0]["autoscaling_groups"][0]["name"]
+resource "aws_autoscaling_attachment" "asg_attachment" {
+  autoscaling_group_name = module.eks.node_groups[0]["resources"][0]["autoscaling_groups"][0]["name"]
   alb_target_group_arn   = module.alb.target_group_arns[0]
 }
 
@@ -62,8 +62,8 @@ resource "aws_security_group_rule" "additional_node_rule" {
   protocol                 = "-1"
   source_security_group_id = module.sg_alb.security_group_id
   description              = "Allow all traffic from LB to node"
-  security_group_id        = module.eks.node_groups["main-group"]["remote_access"][0]["source_security_group_ids"][0]
-} */
+  security_group_id        = module.eks.node_groups[0]["remote_access"][0]["source_security_group_ids"][0]
+}
 
 output "test" {
   value = module.eks.node_groups
