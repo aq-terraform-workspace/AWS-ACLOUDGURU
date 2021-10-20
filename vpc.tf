@@ -48,4 +48,6 @@ module "base_network" {
   manage_default_security_group  = true
   default_security_group_ingress = []
   default_security_group_egress  = []
+
+  tags = module.vpc_label.tags
 }
