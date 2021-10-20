@@ -3,6 +3,11 @@ variable "region" {
   default = "us-east-1"
 }
 
+variable "stage" {
+  description = "Usually used to indicate role, e.g. 'prod', 'staging', 'source', 'build', 'test', 'deploy', 'release'"
+  default = "dev"
+}
+
 variable "common_tags" {
   type = map(string)
   default = {
