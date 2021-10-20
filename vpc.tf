@@ -1,8 +1,15 @@
+module "vpc_label" {
+  source     = "cloudposse/label/null"
+  version    = "0.25.0"
+  attributes = ["vpc"]
+  context    = module.base_label.context
+}
+
 module "base_network" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.10.0"
 
-  name             = "DEV"
+  name             = module.vpc_label.id
   cidr             = "172.18.40.0/22"
   azs              = ["${var.region}a", "${var.region}b"]
   public_subnets   = ["172.18.40.0/25", "172.18.40.128/25"]
@@ -32,4 +39,15 @@ module "base_network" {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/internal-elb"           = 1
   }
+
+  # DNS support
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  # Default security group - ingress/egress rules cleared to deny all
+  manage_default_security_group  = true
+  default_security_group_ingress = []
+  default_security_group_egress  = []
+
+  tags = module.vpc_label.tags
 }

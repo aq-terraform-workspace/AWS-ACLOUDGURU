@@ -1,8 +1,15 @@
+module "alb_label" {
+  source     = "cloudposse/label/null"
+  version    = "0.25.0"
+  attributes = ["alb"]
+  context    = module.base_label.context
+}
+
 module "alb" {
   source  = "HDE/alb/aws"
   version = "6.3.0"
 
-  name            = var.alb_name
+  name            = module.alb_label.id
   vpc_id          = module.base_network.vpc_id
   subnets         = module.base_network.public_subnets
   security_groups = [module.sg_alb.security_group_id]
@@ -25,4 +32,6 @@ module "alb" {
       target_group_index = 0
     }
   ]
+
+  tags = module.alb_label.tags
 }

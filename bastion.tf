@@ -1,26 +1,22 @@
-module "ssh_key" {
-  source = "./modules/terraform-aws-credential"
-
-  type           = "ssh"
-  parameter_name = "linux-ssh-private-key"
-  key_name       = var.key_name
+module "bastion_label" {
+  source     = "cloudposse/label/null"
+  version    = "0.25.0"
+  attributes = ["bastion"]
+  context    = module.base_label.context
 }
 
 module "bastion" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "3.2.0"
 
-  name                        = var.bastion_name
+  name                        = module.bastion_label.id
   ami                         = var.bastion_ami
   instance_type               = var.bastion_instance_type
-  key_name                    = var.key_name
+  key_name                    = local.key_name
   monitoring                  = var.enable_monitoring
   vpc_security_group_ids      = [module.sg_dmz.security_group_id]
   subnet_id                   = module.base_network.public_subnets[0]
   associate_public_ip_address = var.associate_public_ip_address
-}
 
-output "bastion_public_ip" {
-  description = "Public IP of the bastion VM"
-  value       = module.bastion.public_ip
+  tags = module.eks_label.tags
 }

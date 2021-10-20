@@ -1,8 +1,16 @@
+
+module "postgres_label" {
+  source     = "cloudposse/label/null"
+  version    = "0.25.0"
+  attributes = ["postgres"]
+  context    = module.base_label.context
+}
+
 module "postgres" {
   source  = "terraform-aws-modules/rds/aws"
   version = "3.4.0"
 
-  identifier = var.db_name
+  identifier = module.postgres_label.id
 
   # DB instance configuration
   engine                 = "postgres"
@@ -14,9 +22,10 @@ module "postgres" {
   storage_encrypted      = false
   storage_type           = var.db_storage_type
   multi_az               = true
-  name                   = var.db_name
+  name                   = module.postgres_label.id
   username               = var.db_username
   password               = var.db_password
+  # Uncomment the next 2 lines to enable random password creation. Remember to comment the password var above
   # create_random_password = true
   # random_password_length = 10
   port = "5432"
@@ -48,4 +57,6 @@ module "postgres" {
   #   "postgresql",
   #   "upgrade"
   # ]
+
+  tags = module.postgres_label.tags
 }

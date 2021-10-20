@@ -1,11 +1,19 @@
+module "eks_label" {
+  source     = "cloudposse/label/null"
+  version    = "0.25.0"
+  attributes = ["eks"]
+  context    = module.base_label.context
+}
+
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "17.22.0"
 
   cluster_version = var.cluster_version
-  cluster_name    = var.cluster_name
+  cluster_name    = module.eks_label.id
   vpc_id          = module.base_network.vpc_id
   subnets         = module.base_network.private_subnets
+  enable_irsa     = true
 
   # Security Group
   cluster_create_security_group = false
@@ -19,11 +27,15 @@ module "eks" {
       max_capacity              = var.asg_max_size
       min_capaicty              = var.asg_min_size
       instance_types            = var.instance_types
-      key_name                  = var.key_name
+      key_name                  = local.key_name
       source_security_group_ids = ["${module.sg_dmz.security_group_id}"]
       # Use only 1 of these 2 option to control the number of nodes available during the node automatic update
       # update_config.max_unavailable_percentage = var.max_unavailable_percentage
       # update_config.max_unavailable            = var.max_unavailable
+      additional_tags           = {
+        "k8s.io/cluster-autoscaler/enabled" = "true"
+        "k8s.io/cluster-autoscaler/${module.eks_label.id}" = "owned"
+      }
     }
   }
 
@@ -33,6 +45,8 @@ module "eks" {
 
   # Not to apply aws_auth
   manage_aws_auth = false
+
+  tags = module.eks_label.tags
 }
 
 # Create a new ALB Target Group attachment

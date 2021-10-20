@@ -1,8 +1,15 @@
+module "sg_label" {
+  source     = "cloudposse/label/null"
+  version    = "0.25.0"
+  attributes = ["sg"]
+  context    = module.base_label.context
+}
+
 module "sg_dmz" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name        = "sg_dmz"
+  name        = "${module.sg_label.id}-dmz"
   description = "Security group for Bastion"
   vpc_id      = module.base_network.vpc_id
 
@@ -39,13 +46,15 @@ module "sg_dmz" {
       cidr_blocks = "0.0.0.0/0"
     }
   ]
+
+  tags = module.sg_label.tags
 }
 
 module "sg_alb" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name        = "sg_alb"
+  name        = "${module.sg_label.id}-alb"
   description = "Security group for Load Balancer"
   vpc_id      = module.base_network.vpc_id
 
@@ -75,13 +84,15 @@ module "sg_alb" {
       cidr_blocks = "0.0.0.0/0"
     }
   ]
+
+  tags = module.sg_label.tags
 }
 
 module "sg_eks" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name        = "sg_eks"
+  name        = "${module.sg_label.id}-eks"
   description = "Security group for EKS"
   vpc_id      = module.base_network.vpc_id
 
@@ -111,13 +122,15 @@ module "sg_eks" {
       cidr_blocks = module.base_network.vpc_cidr_block
     }
   ]
+
+  tags = module.sg_label.tags
 }
 
 module "sg_database" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.4.0"
 
-  name        = "sg_database"
+  name        = "${module.sg_label.id}-database"
   description = "Security group for Database"
   vpc_id      = module.base_network.vpc_id
 
@@ -147,4 +160,6 @@ module "sg_database" {
       cidr_blocks = module.base_network.vpc_cidr_block
     }
   ]
+
+  tags = module.sg_label.tags
 }

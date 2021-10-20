@@ -34,11 +34,11 @@ resource "aws_ssm_parameter" "credential" {
 }
 
 resource "aws_key_pair" "linux_public_key" {
-  key_name   = var.key_name
+  key_name   = local.key_name
   count      = var.type == "ssh" ? 1 : 0
   public_key = tls_private_key.linux_ssh_key[0].public_key_openssh
   tags       = {
-    Name = var.key_name
+    Name = local.key_name
   }
   lifecycle {
     ignore_changes = [tags]
