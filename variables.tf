@@ -85,6 +85,16 @@ variable "kubeconfig_output_path" {
   default     = "./"
 }
 
+variable "max_unavailable_percentage" {
+  description = "Max percentage of unavailable nodes during update. (e.g. 25, 50, etc)"
+  default = ""
+}
+
+variable "max_unavailable" {
+  description = "Max number of unavailable nodes during update"
+  default = ""
+}
+
 ###########################################################
 # EC2 BASTION VARIABLES
 ###########################################################

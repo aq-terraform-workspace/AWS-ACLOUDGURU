@@ -19,6 +19,14 @@ asg_desired_size = 4
 asg_min_size     = 1
 asg_max_size     = 4
 
+# Use only 1 of these 2 option to control the number of nodes available during the node automatic update
+# max_unavailable_percentage = 25
+# max_unavailable = 1
+
+# Write out kubeconfig file to use with kubectl. To enable this, please set uncomment this var
+# write_kubeconfig = true
+
+
 ###########################################################
 # EC2 BASTION VARIABLES
 ###########################################################

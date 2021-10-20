@@ -1,5 +1,6 @@
 module "eks" {
-  source = "./modules/terraform-aws-eks"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "17.22.0"
 
   cluster_version = var.cluster_version
   cluster_name    = var.cluster_name
@@ -20,13 +21,15 @@ module "eks" {
       instance_types                = var.instance_types
       key_name                      = var.key_name
       source_security_group_ids = ["${module.sg_dmz.security_group_id}"]
+      # Use only 1 of these 2 option to control the number of nodes available during the node automatic update
+      # update_config.max_unavailable_percentage = var.max_unavailable_percentage
+      # update_config.max_unavailable = var.max_unavailable
     }
   }
 
-  # Write out kubeconfig file to use with kubectl
-  # To enable this, please set write_kubeconfig to true in auto.tfvars
-  write_kubeconfig       = var.write_kubeconfig
-  kubeconfig_output_path = var.kubeconfig_output_path
+  # Write out kubeconfig file to use with kubectl. To enable this, please set write_kubeconfig to true in auto.tfvars and uncomment these 2 lines
+  # write_kubeconfig       = var.write_kubeconfig
+  # kubeconfig_output_path = var.kubeconfig_output_path
 
   # Not to apply aws_auth
   manage_aws_auth = false

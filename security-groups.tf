@@ -92,16 +92,13 @@ module "sg_eks" {
       protocol                 = "tcp"
       description              = "Allow all traffic from LB"
       source_security_group_id = module.sg_alb.security_group_id
-    }
-  ]
-
-  ingress_with_cidr_blocks = [
+    },
     {
-      from_port   = "0"
-      to_port     = "0"
-      protocol    = "-1"
-      description = "Allow all traffic from Local. Include bastion and other services stay in the same VPC"
-      cidr_blocks = module.base_network.vpc_cidr_block
+      from_port                = 0
+      to_port                  = 0
+      protocol                 = "tcp"
+      description              = "Allow all traffic from LB"
+      source_security_group_id = module.sg_dmz.security_group_id
     }
   ]
 
