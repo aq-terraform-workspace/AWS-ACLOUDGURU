@@ -66,5 +66,5 @@ resource "aws_autoscaling_attachment" "asg_attachment" {
 } */
 
 output "test" {
-  value = module.eks.node_groups[0]["remote_access"][0]["source_security_group_ids"][0]
+  value = tolist(module.eks.node_groups[0]["remote_access"][0]["source_security_group_ids"])[0]
 }
