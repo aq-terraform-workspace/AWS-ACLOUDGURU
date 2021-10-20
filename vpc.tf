@@ -32,11 +32,11 @@ module "base_network" {
 
   # Tag for subnets that will be used for kubernetes ingress
   public_subnet_tags = {
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${module.eks_label.id}" = "shared"
     "kubernetes.io/role/elb"                    = 1
   }
   private_subnet_tags = {
-    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+    "kubernetes.io/cluster/${module.eks_label.id}" = "shared"
     "kubernetes.io/role/internal-elb"           = 1
   }
 
