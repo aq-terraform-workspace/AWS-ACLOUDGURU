@@ -19,7 +19,7 @@ module "eks" {
       min_capaicty                  = var.asg_min_size
       instance_types                = var.instance_types
       key_name                      = var.key_name
-      source_security_group_ids = ["${module.sg_eks.security_group_id}"]
+      source_security_group_ids = ["${module.sg_dmz.security_group_id}"]
     }
   }
 
@@ -36,4 +36,8 @@ module "eks" {
 resource "aws_autoscaling_attachment" "asg_attachment" {
   autoscaling_group_name = module.eks.node_groups["main-group"]["resources"][0]["autoscaling_groups"][0]["name"]
   alb_target_group_arn   = module.alb.target_group_arns[0]
+}
+
+output "test" {
+  value = module.eks.node_groups
 }
