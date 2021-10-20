@@ -18,7 +18,7 @@ module "alb" {
 
   target_groups = [
     {
-      name             = "${var.alb_target_group_name}"
+      name             = "${module.alb_label.id}-api"
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"

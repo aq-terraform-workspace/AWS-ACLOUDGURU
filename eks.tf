@@ -20,8 +20,8 @@ module "eks" {
   cluster_security_group_id     = module.sg_eks.security_group_id
 
   # Worker configuration
-  node_groups = {
-    "${var.node_group_name}" = {
+  node_groups = [
+    {
       name_prefix               = var.node_group_name
       desired_capacity          = var.asg_desired_size
       max_capacity              = var.asg_max_size
@@ -37,11 +37,11 @@ module "eks" {
         "k8s.io/cluster-autoscaler/${module.eks_label.id}" = "owned"
       }
     }
-  }
+  ]
 
   # Write out kubeconfig file to use with kubectl. To enable this, please set write_kubeconfig to true in auto.tfvars and uncomment these 2 lines
-  # write_kubeconfig       = var.write_kubeconfig
-  # kubeconfig_output_path = var.kubeconfig_output_path
+  write_kubeconfig       = var.write_kubeconfig
+  kubeconfig_output_path = var.kubeconfig_output_path
 
   # Not to apply aws_auth
   manage_aws_auth = false

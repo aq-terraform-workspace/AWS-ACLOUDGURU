@@ -19,70 +19,77 @@ variable "common_tags" {
 # RDS VARIABLES
 ###########################################################
 variable "instance_class" {
-  description = "Instance class for RDS"
+  description = "The instance type of the RDS instance"
+  default     = "db.t3.small"
+}
+
+variable "postgres_version" {
+  description = "Version of the postgres DB that will be created"
+  default = "13.4"
 }
 
 variable "allocated_storage" {
-  description = "RDS allocated storage"
-}
-
-variable "db_name" {
-  description = "DB name"
+  description = "The allocated storage in gigabytes"
+  default     = 30
 }
 
 variable "db_username" {
-  description = "DB Username"
+  description = "Username for the master DB user"
+  default     = "postgres_admin"
 }
 
 variable "db_storage_type" {
-  description = "Storage type for DB"
+  description = "One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD). The default is 'io1' if iops is specified, 'gp2' if not"
   default     = "gp2"
 }
 
 variable "db_password" {
-  description = "Password for DB"
-  default     = ""
+  description = "Password for the master DB user. Note that this may show up in logs, and it will be stored in the state file"
+  default     = "passw0rd"
 }
 
 variable "maintenance_window" {
-  description = "Weekly maintenance time"
+  description = "The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi'. Eg: 'Mon:00:00-Mon:03:00'"
   default     = "Sun:00:00-Sun:03:00"
 }
 
 variable "backup_window" {
-  description = "Backup time"
+  description = "The daily time range (in UTC) during which automated backups are created if they are enabled. Example: '09:46-10:16'. Must not overlap with maintenance_window"
   default     = "03:00-06:00"
 }
 
 ###########################################################
 # EKS VARIABLES
 ###########################################################
-variable "cluster_name" {
-  description = "EKS cluster name"
-}
-
 variable "cluster_version" {
-  description = "EKS Cluster version"
+  description = "Kubernetes version to use for the EKS cluster."
+  default     = "1.21"
 }
 
 variable "instance_types" {
-  description = "EKS worker instance type"
+  description = "Node group's instance type(s). Multiple types can be specified when capacity_type='SPOT'"
+  type = list(string)
+  default = ["t3.small"]
 }
 
 variable "asg_desired_size" {
-  description = "Desired size of the ASG"
+  description = "Desired number of workers"
+  default = 1
 }
 
 variable "asg_max_size" {
-  description = "Max size of the ASG"
+  description = "Max number of workers"
+  default = 2
 }
 
 variable "asg_min_size" {
-  description = "Min size of the ASG"
+  description = "	Min number of workers"
+  default = 1
 }
 
 variable "node_group_name" {
   description = "Name of the node group"
+  default = "main-group"
 }
 
 variable "write_kubeconfig" {
@@ -109,16 +116,9 @@ variable "max_unavailable" {
 ###########################################################
 # EC2 BASTION VARIABLES
 ###########################################################
-variable "bastion_name" {
-  description = "Name of bastion VM"
-}
-
 variable "bastion_instance_type" {
   description = "Instance type of the bastion VM"
-}
-
-variable "key_name" {
-  description = "Keyname that will be creted and used for the EC2"
+  default     = "t3.small"
 }
 
 variable "enable_monitoring" {
@@ -129,6 +129,7 @@ variable "enable_monitoring" {
 
 variable "bastion_ami" {
   description = "AMI ID to create the bastion"
+  default     = "ami-0a99b06fad09f48df" # Ubuntu 20.04 LTS
 }
 
 variable "associate_public_ip_address" {
@@ -140,14 +141,6 @@ variable "associate_public_ip_address" {
 ###########################################################
 # LOAD BALANCER VARIABLES
 ###########################################################
-variable "alb_name" {
-  description = "Name of the ALB"
-}
-
-variable "alb_target_group_name" {
-  description = "Name of the target group"
-}
-
 variable "enable_cross_zone_load_balancing" {
   description = "Indicates whether cross zone load balancing should be enabled in application load balancers"
   type        = bool

@@ -3,6 +3,7 @@ module "postgres_label" {
   source     = "cloudposse/label/null"
   version    = "0.25.0"
   attributes = ["postgres"]
+  delimiter = ""
   context    = module.base_label.context
 }
 
@@ -14,7 +15,7 @@ module "postgres" {
 
   # DB instance configuration
   engine                 = "postgres"
-  engine_version         = "13.4"
+  engine_version         = var.postgres_version
   instance_class         = var.instance_class
   allocated_storage      = var.allocated_storage
   vpc_security_group_ids = [module.sg_database.security_group_id]
@@ -52,7 +53,7 @@ module "postgres" {
   # monitoring_role_name = "MyRDSMonitoringRole"
   # create_monitoring_role = true
 
-  # Cloudwatch log export. Enable this if cloudwatch log needed
+  # Cloudwatch log export. Enable this if cloudwatch log is needed
   # enabled_cloudwatch_logs_exports = [
   #   "postgresql",
   #   "upgrade"
