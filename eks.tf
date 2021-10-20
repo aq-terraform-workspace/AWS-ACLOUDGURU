@@ -1,5 +1,5 @@
 module "eks" {
-  source  = "./modules/terraform-aws-eks"
+  source = "./modules/terraform-aws-eks"
 
   cluster_version = var.cluster_version
   cluster_name    = var.cluster_name
@@ -13,12 +13,12 @@ module "eks" {
   # Worker configuration
   node_groups = {
     "${var.node_group_name}" = {
-      name_prefix      = var.node_group_name
-      desired_capacity = var.asg_desired_size
-      max_capacity     = var.asg_max_size
-      min_capaicty     = var.asg_min_size
-      instance_types   = var.instance_types
-      key_name         = var.key_name
+      name_prefix                   = var.node_group_name
+      desired_capacity              = var.asg_desired_size
+      max_capacity                  = var.asg_max_size
+      min_capaicty                  = var.asg_min_size
+      instance_types                = var.instance_types
+      key_name                      = var.key_name
       additional_security_group_ids = [module.sg_eks.security_group_id]
     }
   }

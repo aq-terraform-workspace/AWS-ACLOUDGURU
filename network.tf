@@ -22,4 +22,14 @@ module "base_network" {
   create_database_subnet_route_table     = true
   create_database_internet_gateway_route = false
   database_subnet_group_name             = "postgres"
+
+  # Tag for subnets that will be used for kubernetes ingress
+  public_subnet_tags = {
+    "kubernetes.io/cluster/${cluster_name}" = "shared"
+    "kubernetes.io/role/elb"                = 1
+  }
+  private_subnet_tags = {
+    "kubernetes.io/cluster/${cluster_name}" = "shared"
+    "kubernetes.io/role/internal-elb"       = 1
+  }
 }
