@@ -1,6 +1,5 @@
 module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "17.22.0"
+  source  = "./modules/terraform-aws-eks"
 
   cluster_version = var.cluster_version
   cluster_name    = var.cluster_name
@@ -20,6 +19,7 @@ module "eks" {
       min_capaicty     = var.asg_min_size
       instance_types   = var.instance_types
       key_name         = var.key_name
+      source_security_group_ids = [module.sg_eks_worker.security_group_id]
     }
   }
 
@@ -32,16 +32,8 @@ module "eks" {
   manage_aws_auth = false
 }
 
-data "aws_lb_target_group" "target_group" {
-  name = var.alb_target_group_name
-
-  depends_on = [
-    module.alb
-  ]
-}
-
 # Create a new ALB Target Group attachment
 resource "aws_autoscaling_attachment" "asg_attachment" {
   autoscaling_group_name = module.eks.node_groups["main-group"]["resources"][0]["autoscaling_groups"][0]["name"]
-  alb_target_group_arn   = data.aws_lb_target_group.target_group.arn
+  alb_target_group_arn   = module.alb.target_group_arns[0]
 }

@@ -155,3 +155,46 @@ module "sg_database" {
     }
   ]
 }
+
+module "sg_eks_worker" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "4.4.0"
+
+  name        = "sg_eks_worker"
+  description = "Security group for Worker nodes of"
+  vpc_id      = module.base_network.vpc_id
+
+  ingress_with_source_security_group_id = [
+    {
+      from_port                = 0
+      to_port                  = 0
+      protocol                 = "tcp"
+      description              = "Allow all traffic from LB"
+      source_security_group_id = module.sg_alb.security_group_id
+    },
+    {
+      from_port                = 5432
+      to_port                  = 5432
+      protocol                 = "tcp"
+      description              = "Allow Database from EKS"
+      source_security_group_id = module.sg_eks.security_group_id
+    },
+    {
+      from_port                = 22
+      to_port                  = 22
+      protocol                 = "tcp"
+      description              = "Allow Database from EKS"
+      source_security_group_id = module.sg_dmz.security_group_id
+    }
+  ]
+
+  egress_with_cidr_blocks = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      description = "Allow output to Local"
+      cidr_blocks = module.base_network.vpc_cidr_block
+    }
+  ]
+}
