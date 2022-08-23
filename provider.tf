@@ -3,7 +3,7 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 4.27.0"
-      # configuration_aliases = [aws.crossbackup]
+      configuration_aliases = [aws.crossbackup]
     }
   }
   required_version = ">=0.15.5"
