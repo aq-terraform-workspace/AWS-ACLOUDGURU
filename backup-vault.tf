@@ -11,7 +11,7 @@ resource "aws_backup_vault" "backup-vault" {
 resource "aws_backup_vault" "diff-account-vault" {
     provider = aws.crossbackup
     name = "some-cross-account-vault-name"
-    kms_key_arn = aws_kms_key.backup-key.arn
+    kms_key_arn = aws_kms_key.crossbackup-backup-key.arn
 }
 
 # AWS Backup plan
