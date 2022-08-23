@@ -1,0 +1,10 @@
+**/*.secret
+**/*.tfstate
+**/*.tfstate.backup
+**/*.out
+**/*.graph
+.terraform
+**/.terraform*
+logs/*
+old/
+**/*.tfold
