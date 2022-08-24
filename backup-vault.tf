@@ -1,7 +1,8 @@
 # Setting for AWS Backup
 resource "aws_backup_global_settings" "test" {
   global_settings = {
-    "isCrossAccountBackupEnabled" = "true"
+    "isCrossAccountBackupEnabled" = "true",
+    "isCrossAccountMonitoringEnabled" = "true"
   }
 }
 
