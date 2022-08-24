@@ -49,8 +49,8 @@ resource "aws_backup_plan" "backup-plan" {
         rule_name = "some-backup-plan-rule-name"
         target_vault_name = aws_backup_vault.backup-vault.name
         schedule = "cron(15 * ? * * *)"     #adjust the time 
-        start_window = 60
-        completion_window = 600
+        start_window = 1440
+        completion_window = 10080
         recovery_point_tags = {
             Type = "my-test-backup"
         }
@@ -63,8 +63,8 @@ resource "aws_backup_plan" "backup-plan" {
         rule_name = "some-backup-plan-rule-name-2"
         target_vault_name = aws_backup_vault.backup-vault.name
         schedule = "cron(45 * ? * * *)"     #adjust the time 
-        start_window = 60
-        completion_window = 600
+        start_window = 1440
+        completion_window = 10080
         recovery_point_tags = {
             Type = "my-test-backup"
         }
