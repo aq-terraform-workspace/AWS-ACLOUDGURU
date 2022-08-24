@@ -1,7 +1,7 @@
 # Setting for AWS Backup
 resource "aws_backup_global_settings" "test" {
   global_settings = {
-    "isCrossAccountBackupEnabled" = "true"
+    "isCrossAccountBackupEnabled" = "false"
   }
 }
 
@@ -48,35 +48,7 @@ resource "aws_backup_plan" "backup-plan" {
     rule {
         rule_name = "some-backup-plan-rule-name"
         target_vault_name = aws_backup_vault.backup-vault.name
-        schedule = "cron(15 * ? * * *)"     #adjust the time 
-        start_window = 1440
-        completion_window = 10080
-        recovery_point_tags = {
-            Type = "my-test-backup"
-        }
-        copy_action {
-            destination_vault_arn = aws_backup_vault.diff-account-vault.arn 
-        }
-    }
-
-    rule {
-        rule_name = "some-backup-plan-rule-name-2"
-        target_vault_name = aws_backup_vault.backup-vault.name
-        schedule = "cron(45 * ? * * *)"     #adjust the time 
-        start_window = 1440
-        completion_window = 10080
-        recovery_point_tags = {
-            Type = "my-test-backup"
-        }
-        copy_action {
-            destination_vault_arn = aws_backup_vault.diff-account-vault.arn 
-        }
-    }
-
-    rule {
-        rule_name = "some-backup-plan-rule-name-3"
-        target_vault_name = aws_backup_vault.backup-vault.name
-        schedule = "cron(0 * * * ? *)"     #adjust the time 
+        schedule = "cron(0 * ? * * *)"     #adjust the time 
         recovery_point_tags = {
             Type = "my-test-backup"
         }
