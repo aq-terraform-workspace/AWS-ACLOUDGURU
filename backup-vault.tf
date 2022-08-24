@@ -76,7 +76,7 @@ resource "aws_backup_plan" "backup-plan" {
     rule {
         rule_name = "some-backup-plan-rule-name-3"
         target_vault_name = aws_backup_vault.backup-vault.name
-        schedule = "cron(0 0 * * * *)"     #adjust the time 
+        schedule = "cron(0 * * * ? *)"     #adjust the time 
         recovery_point_tags = {
             Type = "my-test-backup"
         }
