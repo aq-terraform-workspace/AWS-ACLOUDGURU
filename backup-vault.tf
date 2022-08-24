@@ -48,7 +48,7 @@ resource "aws_backup_plan" "backup-plan" {
     rule {
         rule_name = "some-backup-plan-rule-name"
         target_vault_name = aws_backup_vault.backup-vault.name
-        schedule = "cron(0 * ? * * *)"     #adjust the time 
+        schedule = "cron(30 * ? * * *)"     #adjust the time 
         recovery_point_tags = {
             Type = "my-test-backup"
         }
@@ -85,7 +85,7 @@ resource "aws_backup_vault_policy" "organization-level-policy" {
          "Condition":{
             "StringEquals":{
                "aws:PrincipalOrgID":[
-                  "<<ORGANIZATION-ID>>"
+                  "o-plrr09k3n0"
                ]
             }
          }
@@ -112,7 +112,7 @@ resource "aws_backup_vault_policy" "organization-policy" {
          "Condition":{
             "StringEquals":{
                "aws:PrincipalOrgID":[
-                  "<<ORGANIZATION-ID>>"
+                  "o-plrr09k3n0"
                ]
             }
          }
