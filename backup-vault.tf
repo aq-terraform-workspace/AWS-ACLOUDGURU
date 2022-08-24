@@ -1,11 +1,11 @@
 # Setting for source AWS Backup
-resource "aws_backup_global_settings" "test" {
+resource "aws_backup_global_settings" "source" {
    global_settings = {
       "isCrossAccountBackupEnabled" = "true"
    }
 }
 
-resource "aws_backup_region_settings" "test" {
+resource "aws_backup_region_settings" "source" {
   resource_type_opt_in_preference = {
       "Aurora"          = true
       "DocumentDB"      = true
@@ -27,14 +27,14 @@ resource "aws_backup_region_settings" "test" {
 }
 
 # Setting for destination AWS Backup
-resource "aws_backup_global_settings" "test" {
+resource "aws_backup_global_settings" "dest" {
    provider = aws.crossbackup
    global_settings = {
       "isCrossAccountBackupEnabled" = "true"
    }
 }
 
-resource "aws_backup_region_settings" "test" {
+resource "aws_backup_region_settings" "dest" {
    provider = aws.crossbackup
    resource_type_opt_in_preference = {
       "Aurora"          = true
