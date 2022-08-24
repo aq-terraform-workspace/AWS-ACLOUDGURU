@@ -50,7 +50,7 @@ resource "aws_backup_plan" "backup-plan" {
         target_vault_name = aws_backup_vault.backup-vault.name
         schedule = "cron(15 * ? * * *)"     #adjust the time 
         start_window = 60
-        completion_window = 60
+        completion_window = 600
         recovery_point_tags = {
             Type = "my-test-backup"
         }
