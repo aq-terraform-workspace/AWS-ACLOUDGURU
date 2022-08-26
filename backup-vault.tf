@@ -75,8 +75,8 @@ resource "aws_backup_vault" "diff-account-vault" {
 	name = "some-cross-account-vault-name"
 	kms_key_arn = aws_kms_key.crossbackup-backup-key.arn
 	depends_on = [
-		aws_backup_global_settings.dst,
-		aws_backup_region_settings.dst
+		aws_backup_global_settings.dest,
+		aws_backup_region_settings.dest
 	]
 }
 
@@ -86,7 +86,9 @@ resource "aws_backup_plan" "backup-plan" {
 	rule {
 		rule_name = "some-backup-plan-rule-name"
 		target_vault_name = aws_backup_vault.backup-vault.name
-		schedule = "cron(30 * ? * * *)"     #adjust the time 
+		schedule = "cron(0 5/1 ? * * *)"     #adjust the time 
+		start_window = 60
+		completion_window = 180
 		recovery_point_tags = {
 			Type = "my-test-backup"
 		}
