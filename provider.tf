@@ -27,7 +27,7 @@ provider "aws" {
   # profile = "crossbackup"
 
   ## Method 3: Using assume role to destination account
-  # assume_role {
-  #   role_arn = "arn:aws:iam::############:role/Admin"
-  # }
+  assume_role {
+    role_arn = "arn:aws:iam::643312878292:role/OrganizationAccountAccessRole"
+  }
 }
