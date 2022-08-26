@@ -27,13 +27,6 @@ resource "aws_backup_region_settings" "source" {
 }
 
 # Setting for destination AWS Backup
-resource "aws_backup_global_settings" "dest" {
-	provider = aws.crossbackup
-	global_settings = {
-		"isCrossAccountBackupEnabled" = "true"
-	}
-}
-
 resource "aws_backup_region_settings" "dest" {
 	provider = aws.crossbackup
 	resource_type_opt_in_preference = {
@@ -75,7 +68,6 @@ resource "aws_backup_vault" "diff-account-vault" {
 	name = "some-cross-account-vault-name"
 	kms_key_arn = aws_kms_key.crossbackup-backup-key.arn
 	depends_on = [
-		aws_backup_global_settings.dest,
 		aws_backup_region_settings.dest
 	]
 }
